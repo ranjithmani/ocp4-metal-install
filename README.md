@@ -22,7 +22,7 @@
 
 ## Download Software
 
-1. Download [CentOS 8 x86_64 image](https://www.centos.org/centos-linux/)
+1. Download [CentOS 10 x86_64 image](https://ftp.riken.jp/Linux/centos-stream/10-stream/BaseOS/x86_64/iso/CentOS-Stream-10-latest-x86_64-dvd1.iso)
 1. Login to [RedHat OpenShift Cluster Manager](https://cloud.redhat.com/openshift)
 1. Select 'Create Cluster' from the 'Clusters' navigation menu
 1. Select 'RedHat OpenShift Container Platform'
@@ -33,8 +33,8 @@
    - Pull secret
    - Command Line Interface for Linux and your workstations OS
    - Red Hat Enterprise Linux CoreOS (RHCOS)
-     - rhcos-X.X.X-x86_64-metal.x86_64.raw.gz
-     - rhcos-X.X.X-x86_64-installer.x86_64.iso (or rhcos-X.X.X-x86_64-live.x86_64.iso for newer versions)
+     - rhcos-9.6.20251212-1-x86_64-metal.x86_64.raw.gz
+     - rhcos-9.6.20251212-1-live-iso.x86_64.iso (or rhcos-X.X.X-x86_64-live.x86_64.iso for newer versions)
 
 ## Prepare the 'Bare Metal' environment
 
@@ -155,7 +155,7 @@
 
 1. Set a Static IP for OCP network interface `nmtui-edit ens224` or edit `/etc/sysconfig/network-scripts/ifcfg-ens224`
 
-   - **Address**: 192.168.22.1
+   - **Address**: 192.168.122.2
    - **DNS Server**: 127.0.0.1
    - **Search domain**: ocp.lan
    - Never use this network for default route
@@ -265,13 +265,13 @@
    Install the DHCP Server
 
    ```bash
-   dnf install dhcp-server -y
+   dnf install kea -y
    ```
 
    Edit dhcpd.conf from the cloned git repo to have the correct mac address for each host and copy the conf file to the correct location for the DHCP service to use
 
    ```bash
-   \cp ~/ocp4-metal-install/dhcpd.conf /etc/dhcp/dhcpd.conf
+   \cp ~/ocp4-metal-install/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf
    ```
 
    Configure the Firewall
